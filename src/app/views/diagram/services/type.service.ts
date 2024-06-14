@@ -22,8 +22,6 @@ export class TypeService {
 
   diagramElements = signal<SavedType[]>([]);
 
-  selectedElement = signal<SavedType | null>(null);
-
   newTypeForm = new FormGroup({
     typeName: new FormControl('', {
       nonNullable: true,
@@ -77,9 +75,5 @@ export class TypeService {
 
   randomColor(): string {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  }
-
-  setSelectedElement(element: SavedType | null): void {
-    this.selectedElement.set(element);
   }
 }

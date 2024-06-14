@@ -1,7 +1,7 @@
-<div (click)="selected.emit(element)" [id]="element.id" class="card">
+<div (dblclick)="selected.emit(element)" [id]="element.id" class="card">
   @if (selectedElement()?.id === element.id) {
   <p>SELECTED</p>
-  <span>click to unselect or click onto another type to connect</span>
+
   }
   <p [style.color]="element.color" class="card__name">
     {{ element.typeName }}
