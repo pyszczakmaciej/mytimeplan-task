@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 export type SavedType = {
+  id?: string;
   typeName: string;
   color: string;
   fields: string[];
@@ -13,13 +14,15 @@ export type SavedType = {
 export class TypeService {
   savedTypes = signal<SavedType[]>([
     {
-      typeName: 'Initial Type',
-      fields: ['name'],
+      typeName: 'InitialType',
       color: this.randomColor(),
+      fields: ['name'],
     },
   ]);
 
   diagramElements = signal<SavedType[]>([]);
+
+  selectedElement = signal<SavedType | null>(null);
 
   newTypeForm = new FormGroup({
     typeName: new FormControl('', {
@@ -52,6 +55,7 @@ export class TypeService {
     const newType = {
       ...this.newTypeForm.getRawValue(),
       color: this.randomColor(),
+      id: crypto.randomUUID(),
     };
 
     if (this.savedTypes().find((item) => item.typeName === newType.typeName)) {
@@ -64,12 +68,18 @@ export class TypeService {
     console.log('Created type:', newType);
   }
 
-  addTypeToDiagram(type: SavedType): void {
-    this.diagramElements.set([...this.diagramElements(), type]);
-    console.log('Element added to view:', type);
+  addTypeToDiagram(type: SavedType): SavedType {
+    const typeWithId = { ...type, id: crypto.randomUUID() };
+    this.diagramElements.set([...this.diagramElements(), typeWithId]);
+    console.log('Element added to view:', typeWithId);
+    return typeWithId;
   }
 
   randomColor(): string {
     return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  }
+
+  setSelectedElement(element: SavedType | null): void {
+    this.selectedElement.set(element);
   }
 }
