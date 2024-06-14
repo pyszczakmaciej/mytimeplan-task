@@ -53,7 +53,6 @@ export class TypeService {
     const newType = {
       ...this.newTypeForm.getRawValue(),
       color: this.randomColor(),
-      id: crypto.randomUUID(),
     };
 
     if (this.savedTypes().find((item) => item.typeName === newType.typeName)) {

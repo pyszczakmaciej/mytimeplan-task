@@ -45,7 +45,7 @@ export class JsplumbService {
     this.connect(element);
   }
 
-  connect(element: SavedType): void {
+  private connect(element: SavedType): void {
     if (this.selectedElement()?.typeName === element.typeName) {
       console.warn(
         `Couldn't connect ${this.selectedElement()?.typeName} to the type ${
@@ -56,7 +56,7 @@ export class JsplumbService {
       this.jsPlumbInstance.connect({
         source: this.selectedElement()?.id,
         target: element.id,
-        connector: 'Straight',
+        connector: 'Flowchart',
         endpoint: 'Dot',
         anchor: 'Continuous',
       });
