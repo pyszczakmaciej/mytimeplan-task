@@ -1,0 +1,37 @@
+<form class="create-type-form">
+  <mat-form-field>
+    <mat-label>Type name</mat-label>
+    <input
+      matInput
+      class="create-type-form__input"
+      type="text"
+      [formControl]="newTypeForm.controls.typeName"
+    />
+  </mat-form-field>
+  <div class="create-type-form__fields">
+    <div class="create-type-form__save">
+      <p>Type fields</p>
+      <button
+        mat-raised-button
+        type="button"
+        class="create-type-form__add-button"
+        (click)="addField()"
+      >
+        New field
+      </button>
+    </div>
+    @for (item of fields; track $index) {
+    <mat-form-field>
+      <mat-label>Key</mat-label>
+      <input
+        matInput
+        class="create-type-form__input"
+        type="text"
+        [formControl]="item"
+      />
+    </mat-form-field>
+    }
+  </div>
+
+  <button mat-raised-button type="button" (click)="submit()">Save type</button>
+</form>

@@ -1,0 +1,42 @@
+<header>
+  <app-create-type />
+
+  <form class="diagram-form">
+    <mat-form-field>
+      <label>Select type</label>
+      <mat-select [formControl]="typeControl">
+        @for (item of types(); track $index) {
+        <mat-option [value]="item">{{ item.typeName }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="button" (click)="addToDiagram()">
+      Add to diagram
+    </button>
+  </form>
+</header>
+<main class="diagram-container">
+  @for (diagramElement of diagramElements(); track $index) {
+
+  <div
+    cdkDrag
+    cdkDragBoundary=".diagram-container"
+    class="diagram-container__card"
+  >
+    <p
+      [style.color]="diagramElement.color"
+      class="diagram-container__card__name"
+    >
+      {{ diagramElement.typeName }}
+    </p>
+    @for (field of diagramElement.fields; track $index) {
+    <div class="diagram-container__card__fields">
+      <p>{{ field }}</p>
+      <mat-form-field>
+        <input matInput />
+      </mat-form-field>
+    </div>
+    }
+  </div>
+  }
+</main>
